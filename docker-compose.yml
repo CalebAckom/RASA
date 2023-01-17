@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  rasa-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+    - ./app:/app/rasa-server
+    command: bash -c "rasa run -p 5005"
+    ports:
+    - '5005:5005'
+    container_name: rs-server
+
+  rasa-actions-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+    - ./app:/app/actions-server
+    command: ["rasa", "run", "actions", "-p 5055"]
+    ports:
+    - '5055:5005'
+    container_name: rs-actions
